@@ -31,4 +31,6 @@ compute_target=compute_target,environment=SKLearn_env
 #est = SKLearn(source_directory)
 
 # Create a HyperDriveConfig using the estimator, hyperparameter sampler, and policy.
-hyperdrive_config = ### YOUR CODE HERE ###
+hyperdrive_config = HyperDriveConfig(run_config=src,hyperparameter_sampling=RandomParameterSampling,
+primary_metric_name="accuracy",primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,
+policy=policy,max_total_runs=100,max_concurrent_runs=4)
