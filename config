@@ -1,0 +1,11 @@
+from azureml.core import Workspace, Experiment
+
+ws = Workspace.get(name="quick-starts-ws-133722")
+exp = Experiment(workspace=ws, name="quick-starts-ws-133722")
+
+print('Workspace name: ' + ws.name, 
+      'Azure region: ' + ws.location, 
+      'Subscription id: ' + ws.subscription_id, 
+      'Resource group: ' + ws.resource_group, sep = '\n')
+
+run = exp.start_logging()
