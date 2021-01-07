@@ -5,16 +5,22 @@ from azureml.train.hyperdrive.policy import BanditPolicy
 from azureml.train.hyperdrive.sampling import RandomParameterSampling
 from azureml.train.hyperdrive.runconfig import HyperDriveConfig
 from azureml.train.hyperdrive.parameter_expressions import uniform
+from azureml.core.compute import ComputeTarget, AmlCompute
+from azureml.core.compute_target import ComputeTargetException
 from azureml.core import Environment
 from azureml.core import ScriptRunConfig
 from azureml.core import Workspace, Experiment
+from azureml.core.runconfig import RunConfiguration
 import os
 ws = Workspace.get(name="quick-starts-ws-133881")
+#create environment to run your data
+experiment_name = 'train'
+experiment = Experiment(ws, name=experiment_name)
 # Specify parameter sampler
 ps = RandomParameterSampling(
     {"keep_probability": uniform(0.05,0.1)}
 )
-
+   
 # Specify a Policy
 policy = BanditPolicy(slack_factor = 0.1, evaluation_interval=1, delay_evaluation=5)
 
@@ -22,9 +28,17 @@ if "training" not in os.listdir():
     os.mkdir("./training")
 
 # Create a SKLearn estimator for use with train.py
-SKLearn_env=Environment.get(workspace=ws, name="AzureML-Scikit-learn-0.20.3")
-est = ScriptRunConfig(source_directory = '.',script = 'train.py',compute_target =  cpu_cluster)
+sklearn_env = Environment.from_conda_specification(name = 'sklearn-env', file_path = './conda_dependencies.yml')
+
+#create an estimatr
+est = ScriptRunConfig(source_directory = '.',script = 'train.py', arguments=['--kernel', 'linear', '--penalty', 1.0],
+                      compute_target=cpu_cluster_name,
+                      environment=sklearn_env)
 
 # Create a HyperDriveConfig using the estimator, hyperparameter sampler, and policy.
-hyperdrive_config = HyperDriveConfig(hyperparameter_sampling=ps,primary_metric_name='Accuracy', primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,
-                                     policy=policy,estimator=est,max_total_runs=100)
+hyperdrive_config = HyperDriveConfig(run_config=est,hyperparameter_sampling=ps,primary_metric_name='Accuracy',
+                                      primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,
+                                     policy=policy,max_total_runs=100,max_concurrent_runs=4)
+
+#run = exp.submit(config=hyperdrive_config)
+#run.wait_for_completion(show_output=True)
