@@ -1,0 +1,34 @@
+from azureml.widgets import RunDetails
+from azureml.train.sklearn import SKLearn
+from azureml.train.hyperdrive.run import PrimaryMetricGoal
+from azureml.train.hyperdrive.policy import BanditPolicy
+from azureml.train.hyperdrive.sampling import RandomParameterSampling
+from azureml.train.hyperdrive.runconfig import HyperDriveConfig
+from azureml.train.hyperdrive.parameter_expressions import uniform
+from azureml.core import ScriptRunConfig
+from azureml.core import Workspace, Experiment
+import os
+ws = Workspace.get(name="quick-starts-ws-133722")
+exp = Experiment(workspace=ws, name="quick-starts-ws-133722")
+# Specify parameter sampler
+ps = RandomParameterSampling(
+    {"keep_probability": uniform(0.05,0.1)}
+)
+
+# Specify a Policy
+policy = BanditPolicy(slack_factor=0.1,evaluation_interval=1,slack_amount=none,delay_evaluation=5)
+
+if "training" not in os.listdir():
+    os.mkdir("./training")
+src=ScriptRunConfig(sourc)
+# Create a SKLearn estimator for use with train.py
+compute_target=ws.compute_targets['computecluster']
+src=ScriptRunConfig( source_directory='.',
+script='train.py',
+arguments=['--kernel','linear','--penalty',1.0],
+compute_target=compute_target,environment=SKLearn_env
+)
+#est = SKLearn(source_directory)
+
+# Create a HyperDriveConfig using the estimator, hyperparameter sampler, and policy.
+hyperdrive_config = ### YOUR CODE HERE ###
