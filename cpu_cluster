@@ -1,0 +1,8 @@
+cpu_cluster_name="computecluster"
+try:
+    cpu_cluster_name= ComputeTarget (workspace=ws,name=cpu_cluster_name)
+    print('Found Existing cluster,use it.')
+    except ComputeTargetException:
+    compute_config=AmlCompute.provisioning_configuration(vm_size='STANDARD_D2_V2',MAX_NODES=4)
+    cpu_cluster= ComputeTarget.create(ws,cpu_cluster_name,compute_config)
+    cpu_cluster.wait_for_completion(show_output=True)
