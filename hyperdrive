@@ -5,33 +5,26 @@ from azureml.train.hyperdrive.policy import BanditPolicy
 from azureml.train.hyperdrive.sampling import RandomParameterSampling
 from azureml.train.hyperdrive.runconfig import HyperDriveConfig
 from azureml.train.hyperdrive.parameter_expressions import uniform
+from azureml.core import Environment
 from azureml.core import ScriptRunConfig
 from azureml.core import Workspace, Experiment
-from azureml.core import Environment
 import os
-ws = Workspace.get(name="quick-starts-ws-133722")
-exp = Experiment(workspace=ws, name="quick-starts-ws-133722")
-SKLearn_env=Environment.get(workspace=ws, name="quick-starts-ws-133722")
+ws = Workspace.get(name="quick-starts-ws-133881")
 # Specify parameter sampler
 ps = RandomParameterSampling(
     {"keep_probability": uniform(0.05,0.1)}
 )
 
 # Specify a Policy
-policy = BanditPolicy(slack_factor=0.1,evaluation_interval=1,delay_evaluation=5)
+policy = BanditPolicy(slack_factor = 0.1, evaluation_interval=1, delay_evaluation=5)
 
 if "training" not in os.listdir():
     os.mkdir("./training")
+
 # Create a SKLearn estimator for use with train.py
-compute_target=ws.compute_targets['computecluster']
-src=ScriptRunConfig( source_directory='.',
-script='train.py',
-arguments=['--kernel','linear','--penalty',1.0],
-compute_target=compute_target,environment=SKLearn_env
-)
-#est = SKLearn(source_directory)
+SKLearn_env=Environment.get(workspace=ws, name="AzureML-Scikit-learn-0.20.3")
+est = ScriptRunConfig(source_directory = '.',script = 'train.py',compute_target =  cpu_cluster)
 
 # Create a HyperDriveConfig using the estimator, hyperparameter sampler, and policy.
-hyperdrive_config = HyperDriveConfig(run_config=src,hyperparameter_sampling=RandomParameterSampling,
-primary_metric_name="accuracy",primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,
-policy=policy,max_total_runs=100,max_concurrent_runs=4)
+hyperdrive_config = HyperDriveConfig(hyperparameter_sampling=ps,primary_metric_name='Accuracy', primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,
+                                     policy=policy,estimator=est,max_total_runs=100)
