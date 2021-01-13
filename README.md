@@ -27,12 +27,14 @@ Hence Azure Automl is the best experiment to run to achieve maximum accuracy.
 2) Run the python script to make sure all the defined parameters have been validated with the dataset set to tabular format and splitting the data to train and test datasets.
 Note: If the indentation is not followed in the pythin script. The script will throw an exception while running any experiment.
 3) Create a conda dependencies file if there are any particular versions/packages of azure ml/python to be used.
-4The Hyperparameter tuning requires the following parameters to be defined:
+4)The Hyperparameter tuning requires the following parameters to be defined:
  i)Parameter Sampler: Random Paramter sampling technique was used.
  ii)Estimator: We have define a run script config which defines the SKlearn estimator with the environment defined.
  iii)Policy: Bandit Policy has been used as a early stopping policy
+ 
 **What are the benefits of the parameter sampler you chose?**
 Random Parameter Sampling uses random values for unbiased selection. In this method, we have defined "--C": uniform(0.05, 2), "--max_iter": choice(range(10,200,20))  as the parameter for continuous and discrete selection of values for our dataset. It Supports and improvises the search for better results with the parameters defined.
+
 **What are the benefits of the early stopping policy you chose?**
 The configuation used for Bandit Policy is  **BanditPolicy(evaluation_interval=2, slack_factor=0.1, slack_amount=None, delay_evaluation=0)**
 This policy will terminate if the primary metric is not defined within the slackfactor/amount in this case the slack_factor is 0.1 which will yield the best model.
@@ -129,14 +131,17 @@ Recall score weighted
 0.91647
 Weighted accuracy
 0.96074
-## Pipeline comparison
+## Pipelin
+e comparison
 **Compare the two models and their performance. What are the differences in accuracy? In architecture? If there was a difference, why do you think there was one?**
 | Pipeline  | Accuracy |
 | ------------- | ------------- |
 | Hyperdrive run  | 90.86% |
 | AutoML Run | 91.67%  |
+
 AutoMl is better than hyperdrive as we need to define the parameters in the config for a succesfull iteration by definining the samplers , early stop policy and the most important is algorithm which is a preselected algorithm on a choice.
 In Automl, the task defined choses the best suited algorithm with the accuracy defined and also maximizes the performance on a mentioned problem.
+
 ## Future work
 **What are some areas of improvement for future experiments? Why might these improvements help the model?**
 1) Use two different sampling to compare the results /accuracy in the hyperdrive run pipeline.
@@ -144,6 +149,7 @@ In Automl, the task defined choses the best suited algorithm with the accuracy d
 3) AutoMl to use regression model as we use logistic regression as our algorithm model
 4) Increase the timeout to extra algorithms to choose the best model
 5) Use the concept of deep learning/neural networks which is known for giving the most accurate results.
+
 ## Proof of cluster clean up
 **If you did not delete your compute cluster in the code, please complete this section. Otherwise, delete this section.**
 **Image of cluster marked for deletion**
