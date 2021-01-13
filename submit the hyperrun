@@ -1,5 +1,0 @@
-# Submit your hyperdrive run to the experiment and show run details with the widget.
-hyperdrive_run = experiment.submit(hyperdrive_config)
-RunDetails(hyperdrive_run).show()
-hyperdrive_run.wait_for_completion(show_output=True)
-assert(hyperdrive_run.get_status() == "Completed")
