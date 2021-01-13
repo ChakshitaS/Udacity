@@ -131,8 +131,8 @@ Recall score weighted
 0.91647
 Weighted accuracy
 0.96074
-## Pipelin
-e comparison
+
+## Pipeline comparison
 **Compare the two models and their performance. What are the differences in accuracy? In architecture? If there was a difference, why do you think there was one?**
 | Pipeline  | Accuracy |
 | ------------- | ------------- |
