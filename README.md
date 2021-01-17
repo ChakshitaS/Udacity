@@ -151,8 +151,8 @@ Weighted accuracy
 
 The Best run model gives us the interpretation of the best model during the training data.
 The fitted model can give us more explanation of the featured data from our test or train datasets and findable classes for labelled column "y" for clasification algorithm.
-![Automl]https://github.com/ChakshitaS/Udacity/blob/master/Screenshot%202021-01-18%20101648.png
-![Automl1]https://github.com/ChakshitaS/Udacity/blob/master/Screenshot%202021-01-18%20101605.png
+![Automl](https://github.com/ChakshitaS/Udacity/blob/master/Screenshot%202021-01-18%20101648.png)
+![Automl1](https://github.com/ChakshitaS/Udacity/blob/master/Screenshot%202021-01-18%20101605.png)
 
 The following screenshot explains the metrics for best fit and run model defined in our Automl config.
 ## Pipeline comparison
