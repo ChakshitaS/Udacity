@@ -151,9 +151,9 @@ Weighted accuracy
 
 The Best run model gives us the interpretation of the best model during the training data.
 The fitted model can give us more explanation of the featured data from our test or train datasets and findable classes for labelled column "y" for clasification algorithm.
-![Automl](https://github.com/ChakshitaS/Udacity/blob/master/Screenshot%202021-01-18%20101648.png)
-![Automl1](https://github.com/ChakshitaS/Udacity/blob/master/Screenshot%202021-01-18%20101605.png)
 
+![Automl1](https://github.com/ChakshitaS/Udacity/blob/master/Screenshot%202021-01-18%20101605.png)
+![Automl4](https://github.com/ChakshitaS/Udacity/blob/master/Screenshot%202021-01-18%20102428.png)
 The following screenshot explains the metrics for best fit and run model defined in our Automl config.
 ## Pipeline comparison
 **Compare the two models and their performance. What are the differences in accuracy? In architecture? If there was a difference, why do you think there was one?**
@@ -176,4 +176,5 @@ In Automl, the task defined choses the best suited algorithm with the accuracy d
 ## Proof of cluster clean up
 **If you did not delete your compute cluster in the code, please complete this section. Otherwise, delete this section.**
 **Image of cluster marked for deletion**
-Using my own subscription to use the cluster. I will resuse this in future or else use the code cpu_cluster.delete() to delete in the code.
+cpu_cluster_name.delete() to delete the compute in the code.
+![compute](https://github.com/ChakshitaS/Udacity/blob/master/Screenshot%202021-01-18%20101648.png)
